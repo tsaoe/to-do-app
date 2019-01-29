@@ -2,7 +2,7 @@ function onReady() {
     const addToDoForm = document.getElementById('addToDoForm');
     const newToDoText = document.getElementById('newToDoText');
     const toDoList = document.getElementById('toDoList');
-    const deleteItem = document.createElement("button");
+    const deleteItem = document.createElement('button');
     addToDoForm.addEventListener('submit', () => {
         event.preventDefault();
 
@@ -10,14 +10,13 @@ function onReady() {
         let title = newToDoText.value;
         // create a new li
         let newLi = document.createElement('li');
-        newLi.id = title;
+
         // create a new input
         let checkbox = document.createElement('input');
 
         // set the input's type to checkbox
         checkbox.type = "checkbox";
-        checkbox.name = "checkbox";
-        checkbox.id = title;
+
         // set the title
         newLi.textContent = title;
 
@@ -31,27 +30,19 @@ function onReady() {
         newToDoText.value = '';
 
 
-        deleteItem.innerText ="Delete";
-        deleteItem.className = "delete";
-        deleteItem.onclick = deleteTask;
-        toDoList.appendChild(deleteItem);
+        deleteItem.addEventListener('click', function() {
+          if(this.checked) {
+              deleteTask(newLi);
+        };
     });
-  };
+  });
+};
+function deleteTask(newLi){
 
-var deleteTask = function(){
-  var checkboxes = document.getElementsByName("checkbox");
-  var checkboxesChecked = [];
-  for (var i=0; i<checkboxes.length; i++) {
-     if (checkboxes[i].checked) {
-       var listItem = document.getElementById(checkboxes[i].id);
-       listItem.parentNode.removeChild(listItem);
+        var list = newLi.parentElement;
+        list.removeChild(newLi);
 
-     }
-  }
-
-  return checkboxesChecked.length > 0 ? checkboxesChecked : null;
-
-  };
+     };
 
 window.onload = function() {
   onReady();
